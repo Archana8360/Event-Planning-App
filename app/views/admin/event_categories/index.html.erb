@@ -32,7 +32,6 @@
                     <tr>
                     <th scope="col">Category Name</th> 
                     <th scope="col">Status</th>
-                    <th scope="col">Toggle Status</th>
                     <th scope="col">Actions</th>
 
                     </tr>
@@ -43,17 +42,12 @@
                       <td><%= e.event_category %></a></td>                    
                       <% if e.status == false %>
                         <% cat_status = "Inactive"%>
-                        <td><span class="badge bg-danger"><%= link_to cat_status ,update_status_admin_event_category_path(e),data:{'turbo-method': :patch , turbo_confirm: 'Are you sure you want to suspend this category?'} , style: "color: white;"%></span></td>
+                        <td><span class="badge bg-danger"><%= link_to cat_status ,update_status_admin_event_category_path(e),data:{'turbo-method': :patch , turbo_confirm: 'Are you sure you want to activate this category?'} , style: "color: white;"%></span></td>
                       <% else %>
                         <% cat_status = "Active"%>
-                      <td><span class="badge bg-success"><%= cat_status %></span></td>
+                      <td><span class="badge bg-success"><%=link_to cat_status, update_status_admin_event_category_path(e),data:{'turbo-method': :patch , turbo_confirm: 'Are you sure you want to suspend this category?'}  , style: "color: white;"%></span></td>
                       <% end %>
-                      <td><% if e.status == true %>
-                        <%= link_to "",  update_status_admin_event_category_path(e),data:{'turbo-method': :patch , turbo_confirm: 'Are you sure you want to suspend this category?'}, class: "fa fa-lock-open text-decoration-none", style:"color: green;" %>
-                      <% else %>
-                        <%= link_to "", update_status_admin_event_category_path(e),data:{'turbo-method': :patch , turbo_confirm: 'Are you sure you want to activate this category?'}, class: "fa fa-lock text-decoration-none", style:"color: red;" %>
-                      <% end %>
-                      </td>
+                   
                       <td>
                       <div class="action-links">
                         <%= link_to "", edit_admin_event_category_path(e), class: "fa-solid fa-pencil text-decoration-none", style: "margin-right: 10px;" %>

@@ -32,7 +32,6 @@
                     <tr>
                     <th scope="col">Hashtag Name</th> 
                     <th scope="col">Status</th>
-                    <th scope="col">Toggle Status</th>
                     <th scope="col">Actions</th>
 
                     </tr>
@@ -42,18 +41,12 @@
                     <tr>
                       <td><%= h.name %></a></td>                    
                       <% if h.status == false %>
-                        <% cat_status = "disapproved"%>
-                        <td><span class="badge bg-danger"><%= cat_status %></span></td>
+                        <% cat_status = "Inactive"%>
+                        <td><span class="badge bg-danger"><%=link_to cat_status,update_status_admin_hashtag_path(h),data:{'turbo-method': :patch , turbo_confirm: 'Are you sure you want to active this hashtag?'} , style: "color: white;"%></span></td>
                       <% else %>
-                        <% cat_status = "approved"%>
-                      <td><span class="badge bg-success"><%= cat_status %></span></td>
+                        <% cat_status = "Active"%>
+                      <td><span class="badge bg-success"><%=link_to cat_status,update_status_admin_hashtag_path(h),data:{'turbo-method': :patch , turbo_confirm: 'Are you sure you want to suspend this hashtag?'}, style: "color: white;" %></span></td>
                       <% end %>
-                      <td><% if h.status == true %>
-                        <%= link_to "",  update_status_admin_hashtag_path(h),data:{'turbo-method': :patch , turbo_confirm: 'Are you sure you want to suspend this hashtag?'}, class: "fa fa-lock-open text-decoration-none", style:"color: green;" %>
-                      <% else %>
-                        <%= link_to "", update_status_admin_hashtag_path(h),data:{'turbo-method': :patch , turbo_confirm: 'Are you sure you want to restore this hashtag?'}, class: "fa fa-lock text-decoration-none", style:"color: red;" %>
-                      <% end %>
-                      </td>
                       <td>
                       <div class="action-links">
                         <%= link_to "", edit_admin_hashtag_path(h), class: "fa-solid fa-pencil text-decoration-none", style: "margin-right: 10px;" %>

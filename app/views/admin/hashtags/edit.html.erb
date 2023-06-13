@@ -40,7 +40,7 @@
 
                     <div>
                       <%= form.label :status, style: "display: block" %>
-                      <%= form.text_field :status , class:"form-control" %>
+                      <%= form.select( :status, [["Active", true], ["Inactive", false]],{},{:class =>"form-select"})%>
                     </div>
 
 

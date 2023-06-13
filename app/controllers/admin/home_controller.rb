@@ -2,6 +2,7 @@ class Admin::HomeController < ApplicationController
     before_action :authenticate_user!
     
     def dashboard
+      @events = Event.all
     end
   
     def profile

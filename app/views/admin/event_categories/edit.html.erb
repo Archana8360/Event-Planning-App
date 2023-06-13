@@ -33,14 +33,16 @@
 
                     <div>
                       <%= form.label :event_category, style: "display: block" %>
-                      <%= form.text_field :event_category , class:"form-control" %>
+                      <%= form.text_field :event_category , class:"form-control" ,required:true %>
                     </div>
 
                   <br>
 
                     <div>
                       <%= form.label :status, style: "display: block" %>
-                      <%= form.text_field :status , class:"form-control" %>
+                      <%= form.select( :status, [["Active", true], ["Inactive", false]],{},{:class =>"form-select"})%>
+
+                      <%#= form.text_field :status , class:"form-control" %>
                     </div>
 
 

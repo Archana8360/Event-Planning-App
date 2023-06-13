@@ -1,4 +1,5 @@
 class  Admin::HashtagsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_hashtag, only: %i[ show edit update destroy ]
 
   # GET /hashtags or /hashtags.json
@@ -21,15 +22,16 @@ class  Admin::HashtagsController < ApplicationController
 
   # POST /hashtags or /hashtags.json
   def create
-    
     @hashtag = Hashtag.new(hashtag_params)
-      if @hashtag.save
-        redirect_to admin_hashtag_url(@hashtag), status: :created
-      else
-        redirect_to new_admin_hashtag_path , status: :unprocessable_entity ,status: :unprocessable_entity 
-      end
-    
+    if @hashtag.save
+      redirect_to admin_hashtag_url(@hashtag), status: :created
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
+  
+
+  
 
   # PATCH/PUT /hashtags/1 or /hashtags/1.json
   def update
@@ -66,7 +68,7 @@ class  Admin::HashtagsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def hashtag_params
-      params.require(:hashtags).permit(:name, :status)
+      params.require(:hashtag).permit(:name, :status)
     end
     
 end
