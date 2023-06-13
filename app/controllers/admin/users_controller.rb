@@ -11,6 +11,13 @@ class Admin::UsersController < ApplicationController
   def show
   end
 
+  def update
+    @profile = Profile.find_by(user_id:params[:id])
+    @profile.update(update_params)
+    redirect_to admin_user_path(@profile),notice: "User Updated Successfully"
+  end
+  
+
   def update_status
     @user = User.find(params[:id])
     new_status = @user.status == 'active' ? 'suspended' : 'active'
@@ -46,5 +53,9 @@ class Admin::UsersController < ApplicationController
     # Only allow a list of trusted parameters through.
     def user_params
       params.fetch(:user, {})
+    end
+
+    def update_params
+      params.require(:profile).permit(:phone_number,:address,:dob)
     end
 end

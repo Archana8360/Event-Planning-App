@@ -9,7 +9,18 @@ class Admin::EventsController < ApplicationController
   
     # GET /users/1 or /users/1.json
     def show
+      @options_all =EventCategory.pluck(:event_category,:id)
+      @option = EventCategory.find_by(id:@event.event_categories_id)
+      @selected = [@option[:event_category],@option[:id]]
+
     end
+
+    def update
+      @event = Event.find_by(id:params[:id])
+      @event.update(update_params)
+      redirect_to admin_event_path(@event),notice: "Event Updated"
+    end
+    
 
     def update_status
       @event = Event.find(params[:id])
@@ -47,6 +58,10 @@ class Admin::EventsController < ApplicationController
       # Only allow a list of trusted parameters through.
       def event_params
         params.fetch(:event, {})
+      end
+      
+      def update_params
+        params.require(:event).permit(:title,:location,:latitude,:longitude,:start_date,:start_time,:end_date,:end_time,:description)
       end
 
 end

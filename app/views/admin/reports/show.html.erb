@@ -46,14 +46,20 @@
                   <td>
                     <span class="text-lightgrey">Report Status</span>
                   </td>
-                  <td><% if @report.status == 'reported' %>
-                          <span class="badge bg-warning">Reported</span>
-                        <% elsif @report.status == 'approved'%>
-                          <span class="badge bg-success">Approved</span>
-                       
-                        <%else%>
-                          <span class="badge bg-danger">Inactive</span>
-                        <% end %></td>
+           
+                  <td><% if @report.status== "reported" %>
+                    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                      <%= link_to admin_path(@report), data: { 'turbo-method': :patch, turbo_confirm: 'Are you sure you want to approve this event report?' }, class: "btn btn-outline-success ", id: "btnradio1" do %>
+                        Approve
+                      <% end %>
+
+                      <%= link_to admin_reports_disapprove_path(@report), data: { 'turbo-method': :patch, turbo_confirm: 'Are you sure you want to disapprove this report?' }, class: "btn btn-outline-danger", id: "btnradio2" do %>
+                        Disapprove
+                      <% end %>
+                    </div>
+                    <%end %>
+                  </td>
+
                 </tr>
                 
               </tbody>

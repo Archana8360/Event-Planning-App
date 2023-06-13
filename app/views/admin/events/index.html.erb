@@ -25,9 +25,8 @@
                 <thead>
                     <tr>
                     <th scope="col">Event Title</th> 
-                    <th scope="col">Status</th>
-                    <th scope="col">Toggle Status</th>
-                    <th scope="col">Delete User</th>
+                    <th scope="col" data-searchable="false">Status</th>
+                    <th scope="col" data-searchable="false" data-sortable="false">Actions</th>
 
                     </tr>
                 </thead>
@@ -37,21 +36,21 @@
                     <td><a href="<%= admin_event_path(e) %>"><%= e.title %></a></td>                    
                     <% if e.is_approved == false && e.event_status== 'active' %>
                         <% s = "Pending" %>
-                        <td><span class="badge bg-warning"><%= s %></span></td>
+                        <td><span class="badge bg-warning"><%= link_to s,update_status_admin_event_path(e),data:{'turbo-method': :patch , turbo_confirm: 'Are you sure you want to suspend this event?'}, style: "color: white;" %></span></td>
                     <% elsif e.is_approved == false && e.event_status== "suspended" %>
                         <% s = "Suspended" %>
-                        <td><span class="badge bg-danger"><%= s %></span></td>
+                        <td><span class="badge bg-danger"><%=link_to s,update_status_admin_event_path(e),data:{'turbo-method': :patch , turbo_confirm: 'Are you sure you want to restore this event?'}, style: "color: white;" %></span></td>
                     <% else %>
                         <% s = "Approved" %>
-                    <td><span class="badge bg-success"><%= s %></span></td>
+                    <td><span class="badge bg-success"><%=link_to s,update_status_admin_event_path(e),data:{'turbo-method': :patch , turbo_confirm: 'Are you sure you want to suspend this event?'}, style: "color: white;" %></span></td>
                     <% end %>
-                    <td><% if e.is_approved == false  %>
-                      <%= link_to "",  update_status_admin_event_path(e),data:{'turbo-method': :patch , turbo_confirm: 'Are you sure you want to restore this event?'}, class: "fa fa-lock text-decoration-none", style:"color: red;" %>
-                    <% else %>
-                      <%= link_to "", update_status_admin_event_path(e),data:{'turbo-method': :patch, turbo_confirm: 'Are you sure you want to suspend this event?'}, class: "fa fa-lock-open text-decoration-none", style:"color: green;" %>
-                    <% end %>
+                   
+                    <td>
+                    <div class="action-links">
+                    <%= link_to "",admin_event_path(e) , class: "fa-solid fa-pencil text-decoration-none", style: "margin-right: 10px;"%>
+                    <%= link_to "",admin_event_path(e),data:{turbo_method: :delete,turbo_confirm: 'Are you sure? This will permanently delete the event.'}, class: "fa-solid fa-trash"%>
+                    </div>
                     </td>
-                    <td><%= link_to "",admin_event_path(e),data:{turbo_method: :delete,turbo_confirm: 'Are you sure?'}, class: "fa-solid fa-trash"%></td>
                     </tr>
                     <% end %>
                 </tbody>

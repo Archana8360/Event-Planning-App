@@ -22,8 +22,12 @@
             <%= turbo_frame_tag 'profile-image' do %>
               <%= image_tag(current_user.profile.image, alt: 'Profile', class: 'rounded-circle') %>
             <% end %>
-            <div class="mb-3">
-              <%= file_field :image, style: 'display: none;', id: 'upload-image-field', data: { turbo_frame: 'profile-image' } %>
+             <div class="m-3">
+
+                <%= form_with( url: admin_profile_path, scope: :profile, method: :patch) do |f| %>
+                <%= f.file_field :image, class:"form form-control", onchange:"this.form.requestSubmit();"%>
+                <%end%>
+
             </div>
           </div>
         </div>
@@ -45,9 +49,6 @@
                   <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Profile</button>
                 </li>
 
-                <li class="nav-item">
-                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings">Settings</button>
-                </li>
 
                 <li class="nav-item">
                   <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Change Password</button>
@@ -141,41 +142,7 @@
 
                 </div>
 
-                <div class="tab-pane fade pt-3" id="profile-settings">
-
-                  <!-- Settings Form -->
-                   <%= form_with(url:admin_update_settings_path) do |f| %>
-                    <div class="row mb-3">
-                     
-                      <div class="col-md-8 col-lg-9">
-                        <div class="mb-3 row">
-                         <label class="col-sm-3 col-form-label">User Status</label>
-                         <div class="col-sm-9">
-                          <%= f.select( :user_status, [["Inactive", 0], ["Active", 1],["suspended", 4]],{},{:class =>"form-select"})%>
-                          </div>
-                        </div>
-                        <div class="mb-3 row">
-                          <label for="inputRadius" class="col-sm-3 col-form-label">Radius</label>
-                          <div class="col-sm-9">
-                           <%= f.number_field :radius,class:"form-control",id:"inputRadius"%>
-                          </div>
-                        </div>
-                        <div class="form-check">
-                        <%= f.check_box :notifications ,class:"form-check-input"%>
-                          <label class="form-check-label" for="proOffers">
-                            Enable Notifications
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="text-center">
-                      <%= f.submit "Update Settings",class:"btn btn-primary"%>
-                    </div>
-                 
-          <% end %>
-
-                </div>
+            
 
                 <div class="tab-pane fade pt-3" id="profile-change-password">
                   <!-- Change Password Form -->

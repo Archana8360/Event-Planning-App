@@ -6,6 +6,12 @@ class Admin::ReportsController < ApplicationController
     end
 
 
+    def update
+        @report =  Report.find_by(id:params[:id])
+        @report.update(update_params)
+        redirect_to admin_report_path(@report)
+    end
+
     def update_status
         @report =  Report.find_by(id:params[:id])
         if @report.status == "reported" && @report.report_type == 2 
@@ -68,5 +74,9 @@ class Admin::ReportsController < ApplicationController
         end
     end
 
+    private
+    def update_params
+        params.require(:report).permit(:status)
+    end
 
 end

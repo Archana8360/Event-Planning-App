@@ -19,48 +19,89 @@
                   
                                         
                 <p class="card-text" style="display: flex; justify-content: center;">
+
+            <%= form_with(model:@event,url: admin_event_update_path(@event))do |form| %>
+
             <table class="table">
-              <tbody>
+               <tr>
+                  <td>
+                    <span class="text-lightgrey">Title</span>
+                  </td>
+                  <td><%=form.text_field :title, value:@event.title, class:"form form-control",required:true %></td>
+                </tr><tbody>
+
                 <tr>
                   <td>
                     <span class="text-lightgrey">Location</span>
                   </td>
-                  <td><%= @event.location %></td>
+                  <td><%=form.text_field :location, value:@event.location, class:"form form-control",required:true %></td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="text-lightgrey">Latitude</span>
+                  </td>
+                  <td><%=form.text_field :latitude, value:@event.latitude, class:"form form-control",required:true %></td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="text-lightgrey">Longitude</span>
+                  </td>
+                  <td><%=form.text_field :longitude, value:@event.longitude, class:"form form-control",required:true %></td>
                 </tr>
                 <tr>
                   <td>
                     <span class="text-lightgrey">Category</span>
                   </td>
-                  <td><% eventid = @event.event_categories_id%>
-                  <% cat_name = EventCategory.find_by(id: eventid)%>
-                  <%= cat_name.event_category%>
-                  </td>
+                  <td><%= form.select :event_category_id, options_for_select(@options_all,@selected),{},{:class =>"form-select"}%></td>
 
                 </tr>
                 <tr>
                   <td>
-                    <span class="text-lightgrey">Start</span>
+                    <span class="text-lightgrey">Start Date</span>
                   </td>
-                  <td><%= @event.start_date.strftime('%b %e, %Y') %> <%= @event.start_time.strftime("%I:%M%P") %> </td>
+                  <td><%=form.text_field :start_date, value:@event.start_date.strftime('%b %e, %Y'), class:"form form-control",required:true %></td>
                 </tr>
                 <tr>
                   <td>
-                    <span class="text-lightgrey">End</span>
+                    <span class="text-lightgrey">Start Time</span>
                   </td>
-                  <td><%= @event.end_date.strftime('%b %e, %Y') %> <%= @event.end_time.strftime("%I:%M%P") %></td>
+                  <td><%=form.text_field :start_time,value:@event.start_time.strftime("%I:%M%P"), class:"form form-control",required:true %></td>
+                </tr>
+
+
+                
+                <tr>
+                  <td>
+                    <span class="text-lightgrey">End Date</span>
+                  </td>
+                  <td><%=form.text_field :end_date, value:@event.end_date.strftime('%b %e, %Y'), class:"form form-control",required:true %></td>
+                </tr>
+                  <tr>
+                  <td>
+                    <span class="text-lightgrey">End Time</span>
+                  </td>
+                  <td> <%=form.text_field :end_time,value:@event.end_time.strftime("%I:%M%P"), class:"form form-control",required:true %></td>
                 </tr>
                 <tr>
                   <td>
                     <span class="text-lightgrey">Description</span>
                   </td>
-                  <td><%= @event.description %></td>
+                  <td><%=form.text_field :description, value:@event.description, class:"form form-control",required:true %></td>
+                </tr>
+                 <tr>
+                  <td>
+                    <span class="text-lightgrey">Hosted by</span>
+                  </td><% user = User.find_by(id: @event.user_id) %>
+                  <td><input class = "form form-control" value="<%=user.email%>" disabled></td>
                 </tr>
                 <tr>
                   <td>
-                    <span class="text-lightgrey">Hosted by</span>
+                    
                   </td>
-                  <td><% user = User.find_by(id: @event.user_id) %><%= user.email%></td>
+                  <td><%=form.submit "Update Event", class:"btn btn-primary"%></td>
                 </tr>
+                
+                <%end%>
               </tbody>
             </table>
           </p>  
@@ -78,12 +119,6 @@
 
 </main><!-- End #main -->
 <%= render partial: "shared/footer" %>
-
-
-
-
-
-
 
 
 

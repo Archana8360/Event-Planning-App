@@ -26,9 +26,8 @@
                     <tr>
                     <th scope="col">Name</th> 
                     <th scope="col" >Email</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Toggle Status</th>
-                    <th scope="col">Delete User</th>
+                    <th scope="col" data-searchable="false">Status</th>
+                    <th scope="col" data-searchable="false" data-sortable="false">Delete User</th>
 
                     </tr>
                 </thead>
@@ -42,17 +41,12 @@
                     <% end %>
                     <td><%= u.email %></td>
                     <% if u.status == 'suspended' %>
-                    <td><span class="badge bg-danger"><%= "Suspended" %></span></td>
+                    <td><span class="badge bg-danger"><%=link_to "Suspended", update_status_admin_user_path(u),data:{'turbo-method': :patch , turbo_confirm: 'Are you sure you want to activate this user?'}, style: "color: white;" %></span></td>
                     <% else %>
-                    <td><span class="badge bg-success"><%= "Active" %></span></td>
+                    <td><span class="badge bg-success"><%=link_to "Active",update_status_admin_user_path(u),data:{'turbo-method': :patch , turbo_confirm: 'Are you sure you want to suspend this user?'}, style: "color: white;" %></span></td>
                     <% end %>
-                    <td><% if u.status == 'active' %>
-                      <%= link_to "",  update_status_admin_user_path(u),data:{'turbo-method': :patch, turbo_confirm: 'Are you sure you want to suspend this user?'}, class: "fa fa-lock-open text-decoration-none", style:"color: green;" %>
-                    <% else %>
-                      <%= link_to "", update_status_admin_user_path(u),data:{'turbo-method': :patch , turbo_confirm: 'Are you sure you want to activate this user?'}, class: "fa fa-lock text-decoration-none", style:"color: red;" %>
-                    <% end %>
-                    </td>
-                    <td><%= link_to "",admin_user_path(u),data:{turbo_method: :delete,turbo_confirm: 'Are you sure?'}, class: "fa-solid fa-trash"%></td>
+                 
+                    <td><%= link_to "",admin_user_path(u),data:{turbo_method: :delete,turbo_confirm: 'Are you sure? This will delete user permanently and you will not be able to recover it.'}, class: "fa-solid fa-trash"%></td>
                     </tr>
                     <% end %>
                 </tbody>

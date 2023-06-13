@@ -53,6 +53,12 @@
         <% end %>      
       </li><!-- End Profile Page Nav -->
 
+     <li class="nav-item">
+        <%= link_to admin_settings_path, class: "nav-link collapsed" do %>          
+          <i class="bi bi-person"></i>
+          <span>Admin Settings</span>
+        <% end %>      
+      </li><!-- End Profile Page Nav -->
      
      <li class="nav-item">
       <%= link_to admin_logout_path, 'data-turbo-method': :delete, class: "nav-link collapsed" do %>          

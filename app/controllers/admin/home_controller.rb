@@ -28,9 +28,12 @@ class Admin::HomeController < ApplicationController
     end
 
 
+    def settings
+      @settings = AdminSetting.last.settings
+      @options_all =[["Inactive", 0], ["Active", 1]]
+      
+    end
     
-
-  
 
     def update_settings
       @settings = AdminSetting.last

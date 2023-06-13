@@ -16,51 +16,63 @@
             </div>
           <% end %>
           <p class="card-text" style="display: flex; justify-content: center;">
+           
+
+
+
+
+   <%= form_with(model:@user.profile,url: admin_user_update_path(@user))do |form| %>
+
             <table class="table">
-              <tbody>
-                <tr>
+               <tr>
                   <td>
-                    <i class="fa-sharp fa-solid fa-envelope mr-2" style="color: lightgrey;"></i>
                     <span class="text-lightgrey">Email</span>
                   </td>
-                  <td><%= @user.email %></td>
-                </tr>
+                  <td><input class = "form form-control" value="<%=@user.email%>" disabled></td>
+                </tr><tbody>
+
                 <tr>
                   <td>
-                    <i class="fa-sharp fa-solid fa-phone mr-2" style="color: lightgrey;"></i>
-                    <span class="text-lightgrey">Phone Number</span>
+                    <span class="text-lightgrey">Phone number</span>
                   </td>
-                  <td><%= @user.profile.phone_number %></td>
+                  <td>
+                    <%= form.text_field :phone_number, value: @user.profile.phone_number, class: "form form-control", required: true, pattern: "[0-9]{10}", title: "Please enter a valid 10-digit phone number" %>
+                  </td>
                 </tr>
                 <tr>
                   <td>
-                    <i class="fa-sharp fa-solid fa-location-dot mr-2" style="color: lightgrey;"></i>
                     <span class="text-lightgrey">Address</span>
                   </td>
-                  <td><%= @user.profile.address %></td>
+                  <td><%=form.text_field :address, value:@user.profile.address, class:"form form-control",required:true %></td>
                 </tr>
                 <tr>
                   <td>
-                    <i class="fa-solid fa-cake-candles mr-2" style="color: lightgrey;"></i>
                     <span class="text-lightgrey">Date of Birth</span>
                   </td>
-                  <td><%= @user.profile.dob %></td>
+                  <td>
+                    <%= form.text_field :dob, value: @user.profile.dob, class: "form form-control", required: true, pattern: "\\d{4}-\\d{2}-\\d{2}", title: "Please enter a valid date in the format YYYY-MM-DD", oninvalid: "setCustomValidity('Please enter a valid date of birth')" %>
+                  </td>
                 </tr>
+             
                 <tr>
                   <td>
-                    <i class="fa-sharp fa-solid fa-circle-check mr-2" style="color: lightgrey;"></i>
                     <span class="text-lightgrey">Joined</span>
                   </td>
-                  <td><%= @user.created_at.strftime('%b %e, %Y') %></td>
-                </tr>
+                  <td><input class = "form form-control" value="<%=@user.created_at.strftime('%b %e, %Y')%>" disabled></td>
+                </tr>                    
+                  </td>
+                <tr>
+                <td></td>
+                <td>
+                  <%= form.submit "Update", class: "btn btn-primary" %>
+                
+                </td>
+              </tr>
+                <%end%>
               </tbody>
             </table>
+        <%= link_to 'Back', admin_users_path%>
           </p>
-          <br>
-          <%= link_to 'Back', admin_users_path, style: 'float: left;', class:"btn btn-secondary" %>
-          <%= link_to "Send Email", "mailto:#{@user.email}", method: :get, style: 'float: right;', class:"btn btn-primary" %>
-
-
         </div>
       </div>
     </div>

@@ -42,9 +42,9 @@
                   <thead>
                     <tr>
                     <th scope="col">Reported Events</th> 
-                    <th scope="col">Status</th>
-                    <th scope="col">Approve Report</th>
-                    <th scope="col">Disapporve Report</th>
+                    <th scope="col">Description</th>
+                    <th scope="col" data-searchable="false" >Reported on</th>
+                    <th scope="col" data-searchable="false" data-sortable="false">Report Status</th>
 
                     </tr>
                 </thead>
@@ -55,17 +55,17 @@
                     <tr>
                     <% event_name = Event.find_by(id: r.reported_id) %>
                     <td><%= link_to event_name.title, admin_report_path(r.id)%></td>
+                    <td><%= r.description if r.description.present? %></td>
+                    <td><%= r.created_at.strftime('%b %e, %Y')%></td>
                     <td>
                       <% if r.status == 'reported' %>
-                        <span class="badge bg-warning">Reported</span>
+                        <span class="badge bg-warning">Pending</span>
                         <% elsif r.status == 'approved' %>
                         <span class="badge bg-success">Approved</span>
                       <%else%>
                         <span class="badge bg-danger">Event Inactive</span>
                       <% end %>
                     </td>
-                    <td><%= link_to "",admin_path(r.id),data:{'turbo-method': :patch , turbo_confirm: 'Are you sure you want to approve this event report?'} ,class:"fa-solid fa-thumbs-up"%></td>
-                    <td><%= link_to "",admin_reports_disapprove_path(r.id),data:{'turbo-method': :patch , turbo_confirm: 'Are you sure you want to disapprove this report?'} ,class:"fa-solid fa-thumbs-down"%></td>
                     </tr>  
                   <% end %>
                   
@@ -81,9 +81,9 @@
                   <thead>
                     <tr>
                     <th scope="col">Reported Users</th> 
-                    <th scope="col">Status</th>
-                    <th scope="col">Approve Report</th>
-                    <th scope="col">Disapporve Report</th>
+                    <th scope="col">Description</th>
+                    <th scope="col" data-searchable="false">Reported on</th>
+                    <th scope="col" data-searchable="false" data-sortable="false">Report Status</th>
 
                     </tr>
                 </thead>
@@ -94,17 +94,17 @@
                       <tr>
                     <% user = User.find_by(id: r.reported_id) %>
                     <td><%= link_to user.email, admin_report_path(r.id)%></td>
+                     <td><%= r.description if r.description.present? %></td>
+                    <td><%= r.created_at.strftime('%b %e, %Y')%></td>
                     <td>
                         <% if r.status == 'reported' %>
-                          <span class="badge bg-warning">Reported</span>
+                          <span class="badge bg-warning">Pending</span>
                         <% elsif r.status == 'approved'%>
                           <span class="badge bg-success">Approved</span>
                         <%else%>
                           <span class="badge bg-danger">User Inactive</span>
                         <% end %>
                     </td>
-                    <td><%= link_to "",admin_path(r.id),data:{'turbo-method': :patch , turbo_confirm: 'Are you sure you want to Approve this user?'} ,class:"fa-solid fa-thumbs-up"%></td>
-                    <td><%= link_to "",admin_reports_disapprove_path(r.id),data:{'turbo-method': :patch , turbo_confirm: 'Are you sure you want to disapprove this report?'} ,class:"fa-solid fa-thumbs-down"%></td>
                     </tr>
                   <% end %>
                   

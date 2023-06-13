@@ -1,0 +1,63 @@
+<%= render partial: "shared/header" %>
+<%= render partial: "shared/sidebar" %>
+
+
+<main id="main" class="main">
+    <div class="pagetitle">
+      <h1>Default Settings</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><%= link_to "Home", authenticated_root_path %></li>
+          <li class="breadcrumb-item">Default Settings</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+    <section class="section Users">
+      <div class="row">
+
+        <div class="col-12">
+              <div class="card recent-sales overflow-auto">
+                <div class="card-body">
+                  <h5 class="card-title">Settings </h5>
+                     <%= form_with(url:admin_update_settings_path) do |f| %>
+                    <div class="row mb-3">
+                      <label class="col-sm-3 col-form-label">User Status</label>
+                         <div class="col-sm-9">
+                          <%= f.select :user_status, options_for_select(@options_all,@options_all[@settings["user_status"].to_i]),{},{:class =>"form-select"}%>
+                          </div>
+                        </div>
+                    <div class="mb-3 row">
+                          <label for="inputRadius" class="col-sm-3 col-form-label">Radius</label>
+                          <div class="col-sm-9">  
+                           <%= f.number_field :radius,class:"form-control",id:"inputRadius",value:@settings["radius"]%>  
+                         </div>
+                        </div>
+                        <div class="form-check">
+                        <%if @settings["notifications"] == "1" %>
+                            <%check = true%>
+                            <%else%>
+                            <%check = false%>
+                            <%end%>
+                          <%= f.check_box :notifications ,class:"form-check-input",checked:check%>
+                          <label class="form-check-label">
+                            Enable Notifications
+                          </label>
+                            </div>
+                      </div>
+                    </div>
+
+                    <div class="text-center">
+                      <%= f.submit "Update Settings",class:"btn btn-primary"%>
+                    </div>
+                 
+          <% end %>
+                </div>
+
+              </div>
+            </div><!-- End Recent Sales -->
+
+      </div>
+    </section>
+
+</main><!-- End #main -->
+<%= render partial: "shared/footer" %>

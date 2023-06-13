@@ -76,6 +76,10 @@ Rails.application.routes.draw do
     patch 'reports/update_status/:id', to: "reports#update_status" 
     patch 'reports/disapprove/:id', to: "reports#disapprove",as: :reports_disapprove
     get 'reports/:id', to: "reports#show" ,as: :report
+    patch "/reports/:id", to:"reports#update",as: :report_update
+    patch "/users/:id", to:"users#update",as: :user_update
+    get '/settings', to: 'home#settings', as: :settings
+    
     resources :hashtags do
       member do
         patch 'update_status'
@@ -91,6 +95,8 @@ Rails.application.routes.draw do
         patch 'update_status'
       end
     end
+    patch "/events/:id", to:"events#update",as: :event_update
+
     resources :event_categories do
       member do
         patch 'update_status'
