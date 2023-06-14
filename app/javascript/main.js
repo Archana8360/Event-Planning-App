@@ -320,3 +320,32 @@
 
 })();
 
+function validateImage(event) {
+  const imageInput = event.target;
+  const file = imageInput.files[0];
+
+  if (file && (file.type === 'image/jpeg' || file.type === 'image/png')) {
+    const reader = new FileReader();
+
+    reader.addEventListener('load', function() {
+      const image = new Image();
+
+      image.addEventListener('load', function() {
+        document.getElementById('image-error').style.display = 'none';
+        
+      });
+
+      image.src = reader.result;
+    });
+
+    reader.readAsDataURL(file);
+  } else {
+    const errorMessage = 'Please select a JPG or PNG image';
+    document.getElementById('image-error').textContent = errorMessage;
+    document.getElementById('image-error').style.display = 'block';
+    imageInput.value = ''; // Clear the file input
+  }
+}
+
+
+

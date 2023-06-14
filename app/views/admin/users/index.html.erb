@@ -27,7 +27,7 @@
                     <th scope="col">Name</th> 
                     <th scope="col" >Email</th>
                     <th scope="col" data-searchable="false">Status</th>
-                    <th scope="col" data-searchable="false" data-sortable="false">Delete User</th>
+                    <th scope="col" data-searchable="false" data-sortable="false">Actions</th>
 
                     </tr>
                 </thead>
@@ -45,8 +45,12 @@
                     <% else %>
                     <td><span class="badge bg-success"><%=link_to "Active",update_status_admin_user_path(u),data:{'turbo-method': :patch , turbo_confirm: 'Are you sure you want to suspend this user?'}, style: "color: white;" %></span></td>
                     <% end %>
-                 
-                    <td><%= link_to "",admin_user_path(u),data:{turbo_method: :delete,turbo_confirm: 'Are you sure? This will delete user permanently and you will not be able to recover it.'}, class: "fa-solid fa-trash"%></td>
+                    <td>
+                    <div class="action-links">
+                      <%= link_to "",admin_user_path(u) , class: "fa-solid fa-pencil text-decoration-none", style: "margin-right: 10px;"%>
+                      <%= link_to "",admin_user_path(u),data:{turbo_method: :delete,turbo_confirm: 'Are you sure? This will delete user permanently and you will not be able to recover it.'}, class: "fa-solid fa-trash"%>
+                    </div>
+                    </td>
                     </tr>
                     <% end %>
                 </tbody>

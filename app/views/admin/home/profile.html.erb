@@ -97,14 +97,14 @@
                     <div class="row mb-3">
                       <%= f.label :first_name , "FirstName" ,for:"yourUsername", class: "col-md-4 col-lg-3 col-form-label" %>                      
                       <div class="col-md-8 col-lg-9">
-                        <%= f.text_field :first_name, value: current_user.profile.first_name, class: "form-control", id: "fullName" %>
+                        <%= f.text_field :first_name, value: current_user.profile.first_name, class: "form-control", id: "fullName" ,required:true,  pattern: "[A-Za-z]+", title: "Only alphabetic characters are allowed." %>
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <%= f.label :last_name , "LastName" ,for:"yourUsername", class: "col-md-4 col-lg-3 col-form-label" %>                      
                       <div class="col-md-8 col-lg-9">
-                        <%= f.text_field :last_name, value: current_user.profile.last_name, class: "form-control", id: "fullName" %>
+                        <%= f.text_field :last_name, value: current_user.profile.last_name, class: "form-control", id: "fullName" ,required:true,  pattern: "[A-Za-z]+", title: "Only alphabetic characters are allowed."  %>
                       </div>
                     </div>
 
@@ -112,14 +112,14 @@
                     <div class="row mb-3">
                       <%= f.label :address , "Address" ,id:"Address", class: "col-md-4 col-lg-3 col-form-label" %>                      
                       <div class="col-md-8 col-lg-9">
-                        <%= f.text_field :address, value: current_user.profile.address, class: "form-control", id: "Address" %>
+                        <%= f.text_field :address, value: current_user.profile.address, class: "form-control", id: "Address" ,required:true %>
                       </div>
                     </div>
 
                     <div class="row mb-3">
                         <%= f.label :phone_number , "Phone" , class: "col-md-4 col-lg-3 col-form-label" %>                      
                       <div class="col-md-8 col-lg-9">
-                        <%= f.text_field :phone_number , value: current_user.profile.phone_number , class: "form-control", id: "Phone" %>
+                        <%= f.text_field :phone_number , value: current_user.profile.phone_number , class: "form-control", id: "Phone",required:true ,pattern: "[0-9]{10}", title: "Please enter a valid 10-digit phone number" %>
                       </div>
                     </div>
 

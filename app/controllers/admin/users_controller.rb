@@ -56,6 +56,6 @@ class Admin::UsersController < ApplicationController
     end
 
     def update_params
-      params.require(:profile).permit(:phone_number,:address,:dob)
+      params.require(:profile).permit(:phone_number,:address,:dob,:image)
     end
 end

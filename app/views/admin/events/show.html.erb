@@ -92,18 +92,23 @@
                   <td><input class = "form form-control" value="<%=user.email%>" disabled></td>
                 </tr>
                 <tr>
-                  <td>
-                    
-                  </td>
+                <td>
+                    <span class="text-lightgrey">Change Image</span>
+                </td>
+                <td>
+                  <%= form.file_field :image, onchange: "validateImage(event)" %>
+                  <span id="image-error" class="error-message" style="display: none"></span>                
+                </td>
+                </tr>
+                  <td></td>
                   <td><%=form.submit "Update Event", class:"btn btn-primary"%></td>
                 </tr>
-                
                 <%end%>
               </tbody>
             </table>
           </p>  
           <iframe width="500" height= "500" src="https://maps.google.com/maps?q=<%=@event.latitude%>,<%=@event.longitude%>&hl=es;z=14&output=embed"></iframe>
-
+          <%= image_tag(@event.image, alt: 'Profile', class: 'rounded float-end', style: 'width: 500px; height: 500px;') %>
           <div>
           <br>
             <%= link_to "Back", admin_events_path %>

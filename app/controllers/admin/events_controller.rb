@@ -37,7 +37,7 @@ class Admin::EventsController < ApplicationController
       redirect_to admin_events_url
     end
     
-    
+   
   
     # DELETE /users/1 or /users/1.json
     def destroy
@@ -61,7 +61,7 @@ class Admin::EventsController < ApplicationController
       end
       
       def update_params
-        params.require(:event).permit(:title,:location,:latitude,:longitude,:start_date,:start_time,:end_date,:end_time,:description)
+        params.require(:event).permit(:title,:location,:latitude,:longitude,:start_date,:start_time,:end_date,:end_time,:description,:image)
       end
 
 end

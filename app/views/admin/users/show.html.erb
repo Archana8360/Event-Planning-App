@@ -50,7 +50,7 @@
                     <span class="text-lightgrey">Date of Birth</span>
                   </td>
                   <td>
-                    <%= form.text_field :dob, value: @user.profile.dob, class: "form form-control", required: true, pattern: "\\d{4}-\\d{2}-\\d{2}", title: "Please enter a valid date in the format YYYY-MM-DD", oninvalid: "setCustomValidity('Please enter a valid date of birth')" %>
+                    <%= form.date_field :dob, min: @user.profile.dob.strftime('%b %e, %Y'), class: "form form-control", required: true, pattern: "\\d{4}-\\d{2}-\\d{2}", title: "Please enter a valid date in the format YYYY-MM-DD", oninvalid: "setCustomValidity('Please enter a valid date of birth')" %>
                   </td>
                 </tr>
              
@@ -61,11 +61,19 @@
                   <td><input class = "form form-control" value="<%=@user.created_at.strftime('%b %e, %Y')%>" disabled></td>
                 </tr>                    
                   </td>
+                    <tr>
+                <td>
+                    <span class="text-lightgrey">Change Image</span>
+                </td>
+                <td>
+                  <%= form.file_field :image, onchange: "validateImage(event)" %>
+                  <span id="image-error" class="error-message" style="display: none"></span>                
+                </td>
+                </tr>
                 <tr>
                 <td></td>
                 <td>
                   <%= form.submit "Update", class: "btn btn-primary" %>
-                
                 </td>
               </tr>
                 <%end%>
