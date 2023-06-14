@@ -105,7 +105,7 @@
             <!-- Recent Sales -->
               <div class="card recent-sales overflow-auto">
                 <div class="card-body">
-                  <h5 class="card-title">Active Events </h5>
+                  <h5 class="card-title">All Events </h5>
 
                   <table class="table table-borderless datatable">
                     <thead>
@@ -117,7 +117,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <% @selected_events = @events.where(event_status: :active) %>
+                      <% @selected_events = @events.all %>
                       <% @selected_events.each do |e| %>
                       <tr>
                         <td><%= e.title %></td>
