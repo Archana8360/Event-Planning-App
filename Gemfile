@@ -48,7 +48,6 @@ gem "rack-cors"
 gem 'dotenv-rails'
 gem 'geocoder'
 
-
 # Use Sass to process CSS
 # gem "sassc-rails"
 

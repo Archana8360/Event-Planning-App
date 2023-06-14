@@ -59,13 +59,13 @@
                   <td>
                     <span class="text-lightgrey">Start Date</span>
                   </td>
-                  <td><%=form.text_field :start_date, value:@event.start_date.strftime('%b %e, %Y'), class:"form form-control",required:true %></td>
+                  <td><%=form.date_field :start_date, min:@event.start_date.strftime('%b %e, %Y'), class:"form form-control",required:true %></td>
                 </tr>
                 <tr>
                   <td>
                     <span class="text-lightgrey">Start Time</span>
                   </td>
-                  <td><%=form.text_field :start_time,value:@event.start_time.strftime("%I:%M%P"), class:"form form-control",required:true %></td>
+<td><%= form.time_field :start_time, value: @event.start_time.strftime("%I:%M%P"),min:@event.start_time.strftime("%I:%M%P"), class: "form-control", required: true %></td>
                 </tr>
 
 
@@ -74,7 +74,7 @@
                   <td>
                     <span class="text-lightgrey">End Date</span>
                   </td>
-                  <td><%=form.text_field :end_date, value:@event.end_date.strftime('%b %e, %Y'), class:"form form-control",required:true %></td>
+                  <td><%=form.date_field :end_date, min:@event.end_date.strftime('%b %e, %Y'), class:"form form-control",required:true %></td>
                 </tr>
                   <tr>
                   <td>
