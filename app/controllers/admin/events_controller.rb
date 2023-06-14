@@ -18,7 +18,7 @@ class Admin::EventsController < ApplicationController
     def update
       @event = Event.find_by(id:params[:id])
       @event.update(update_params)
-      redirect_to admin_event_path(@event),notice: "Event Updated"
+      redirect_to admin_event_path(@event)
     end
     
 

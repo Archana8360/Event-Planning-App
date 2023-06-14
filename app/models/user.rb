@@ -5,7 +5,8 @@ class User < ApplicationRecord
   has_many :events
   has_many :favourite_events
   has_many :user_followers
-  
+  has_many :reports
+
   enum status: {
   inactive: 0,
   active: 1,

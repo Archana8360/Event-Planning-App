@@ -4,11 +4,11 @@
 
 <main id="main" class="main">
     <div class="pagetitle">
-      <h1>Default Settings</h1>
+      <h1>Admin Settings</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><%= link_to "Home", authenticated_root_path %></li>
-          <li class="breadcrumb-item">Default Settings</li>
+          <li class="breadcrumb-item">Admin Settings</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -23,7 +23,8 @@
                     <div class="row mb-3">
                       <label class="col-sm-3 col-form-label">User Status</label>
                          <div class="col-sm-9">
-                          <%= f.select :user_status, options_for_select(@options_all,@options_all[@settings["user_status"].to_i]),{},{:class =>"form-select"}%>
+                          <%= f.select :user_status, options_for_select(@options_all,@options_all[@settings["user_status"].to_i]),{},{:class =>"form-select",:id => "userStatusDropdown"}%>
+                          <div id="warningMessage" style="color: red;"></div>
                           </div>
                         </div>
                     <div class="mb-3 row">
@@ -61,3 +62,26 @@
 
 </main><!-- End #main -->
 <%= render partial: "shared/footer" %>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const dropdown = document.getElementById("userStatusDropdown");
+    const warningMessage = document.getElementById("warningMessage");
+    
+    dropdown.addEventListener("change", function() {
+      const selectedOption = dropdown.options[dropdown.selectedIndex].text;
+      
+      if (selectedOption === "Active") {
+        warningMessage.innerText = "This will set the default user status as Active.";
+        warningMessage.style.color = "red";
+      } else if (selectedOption === "Inactive") {
+        warningMessage.innerText = "This will set the default user status as Inactive.";
+        warningMessage.style.color = "red";
+      } else {
+        warningMessage.innerText = "";
+      }
+    });
+  });
+</script>
+
+

@@ -46,13 +46,41 @@
                   <td>
                     <span class="text-lightgrey">Report Status</span>
                   </td>
-           
+                      <td>
+                        <% if @report.status == 'reported' %>
+                          <span class="badge bg-warning">Pending</span>
+                        <% elsif @report.status == 'approved'%>
+                          <span class="badge bg-success">Active</span>
+                        <%else%>
+                          <span class="badge bg-danger">Inactive</span>
+                        <% end %>
+                    </td>
+                  </tr>
+                  <tr>
+                  <td>
+                    <span class="text-lightgrey">Action</span>
+                  </td>
                   <td><% if @report.status== "reported" %>
                     <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
                       <%= link_to admin_path(@report), data: { 'turbo-method': :patch, turbo_confirm: 'Are you sure you want to approve this event report?' }, class: "btn btn-outline-success ", id: "btnradio1" do %>
                         Approve
                       <% end %>
 
+                      <%= link_to admin_reports_disapprove_path(@report), data: { 'turbo-method': :patch, turbo_confirm: 'Are you sure you want to disapprove this report?' }, class: "btn btn-outline-danger", id: "btnradio2" do %>
+                        Disapprove
+                      <% end %>
+                      <% elsif @report.status =="approved" %>
+                       <%= link_to admin_path(@report), data: { 'turbo-method': :patch, turbo_confirm: 'Are you sure you want to approve this event report?' }, class: "btn btn-outline-success ", id: "btnradio1" do %>
+                        Approve
+                      <% end %>
+
+                      <%= link_to admin_reports_disapprove_path(@report), data: { 'turbo-method': :patch, turbo_confirm: 'Are you sure you want to disapprove this report?' }, class: "btn btn-outline-danger disable", id: "btnradio2" do %>
+                        Disapprove
+                      <% end %>
+                      <%elsif @report.status =="suspended" %>
+                       <%= link_to admin_path(@report), data: { 'turbo-method': :patch, turbo_confirm: 'Are you sure you want to approve this event report?' }, class: "btn btn-outline-success disable", id: "btnradio1" do %>
+                        Approve
+                      <% end %>
                       <%= link_to admin_reports_disapprove_path(@report), data: { 'turbo-method': :patch, turbo_confirm: 'Are you sure you want to disapprove this report?' }, class: "btn btn-outline-danger", id: "btnradio2" do %>
                         Disapprove
                       <% end %>

@@ -21,8 +21,7 @@ class Admin::ReportsController < ApplicationController
             else
                 @user.update(status: :active)
                 @report.update(status: :approved)
-                debugger
-                AccountSuspensionMailer.approved(@user).deliver_now
+                AccountSuspensionMailer.approved(@user).deliver_later
             end
         elsif @report.status == "reported" &&  @report.report_type == 1
             @event =  Event.find_by(id:@report.reported_id)
@@ -36,19 +35,19 @@ class Admin::ReportsController < ApplicationController
             # end
            
         end
-        redirect_to admin_reports_path
+        redirect_to admin_report_path(@report)
     end
 
 
     def disapprove
         @report = Report.find_by(id:params[:id])
         if(@report.status == "reported" &&  @report.report_type == 2)
-            @user = User.find_by(id: @event.user_id)
+            @user = User.find_by(id: @report.reported_id)
             @user.update(status: :suspended)
             @event =  Event.find_by(user_id: @user.id)
             @event.update(is_approved: false, event_status: :suspended)
             @report.update(status: :suspended)
-            AccountSuspensionMailer.suspended(@user).deliver_now
+            AccountSuspensionMailer.suspended(@user).deliver_later
 
         end
 
@@ -61,7 +60,7 @@ class Admin::ReportsController < ApplicationController
 
 
         end
-        redirect_to admin_reports_path
+        redirect_to admin_report_path(@report)
     end
 
 

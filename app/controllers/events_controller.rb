@@ -272,6 +272,8 @@ class EventsController < ApplicationController
   
 
 
+
+
 #report event or user
 def report
   type = params[:type]
@@ -310,29 +312,64 @@ end
     end
   end
 
-def report_user(type)
-    user = User.find_by(id: params[:id])
-    description = params[:description]
-    if user.nil?
-      error_404("user not found")
-      return
-    end
-    if user.id == current_user.id
-      error("You cannot report yourself")
-      return
-    end
-    if Report.exists?(reported_id: user.id, reported_by_id: current_user.id, report_type: type)
-      error("You have already reported this event")
-      return
-    end
-    reported_user = Report.create(reported_id: user.id, reported_by_id: current_user.id,report_type: type, description: description)
-    if reported_user.save
-      success("User reported successfully")
-    else
-      error("Failed to report the User")
-    end
- end
   
+# def report_user(type)
+#     user = User.find_by(id: params[:id])
+#     description = params[:description]
+#     if user.nil?
+#       error_404("user not found")
+#       return
+#     end
+#     if user.id == current_user.id
+#       error("You cannot report yourself")
+#       return
+#     end
+#     if Report.exists?(reported_id: user.id, reported_by_id: current_user.id, report_type: type)
+#       error("You have already reported this event")
+#       return
+#     end
+#     reported_user = Report.create(reported_id: user.id, reported_by_id: current_user.id,report_type: type, description: description)
+#     if reported_user.save
+#       success("User reported successfully")
+#     else
+#       error("Failed to report the User")
+#     end
+#  end
+  
+
+def report_user(type)
+  user = User.find_by(id: params[:id])
+  description = params[:description]
+
+  # Check if the user exists
+  if user.nil?
+    error_404("User not found")
+    return
+  end
+
+  # Check if the user is reporting themselves
+  if user.id == current_user.id
+    error("You cannot report yourself")
+    return
+  end
+
+  # Check if the report already exists
+  if Report.exists?(reported_id: user.id, reported_by_id: current_user.id, report_type: type)
+    error("You have already reported this user")
+    return
+  end
+
+  begin
+    Report.transaction do
+      report = Report.new(reported_id: user.id, reported_by_id: current_user.id, report_type: type, description: description)
+      report.save!
+      success("User reported successfully")
+    end
+  rescue => e
+    error("Failed to report the user: #{e.message}")
+  end
+end
+
   
 
  def mark_favourite

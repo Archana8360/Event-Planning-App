@@ -7,6 +7,7 @@ class Event < ApplicationRecord
   has_many :hashtags, through: :event_hashtags
   has_many :like_events
   has_many :liking_users, through: :like_events, source: :user
+  has_many :reports 
 
   enum event_status:{
     active: 1,

@@ -44,7 +44,6 @@
                     <th scope="col">Reported Events</th> 
                     <th scope="col">Description</th>
                     <th scope="col" data-searchable="false" >Reported on</th>
-                    <th scope="col" data-searchable="false" data-sortable="false">Report Status</th>
 
                     </tr>
                 </thead>
@@ -57,15 +56,6 @@
                     <td><%= link_to event_name.title, admin_report_path(r.id)%></td>
                     <td><%= r.description if r.description.present? %></td>
                     <td><%= r.created_at.strftime('%b %e, %Y')%></td>
-                    <td>
-                      <% if r.status == 'reported' %>
-                        <span class="badge bg-warning">Pending</span>
-                        <% elsif r.status == 'approved' %>
-                        <span class="badge bg-success">Approved</span>
-                      <%else%>
-                        <span class="badge bg-danger">Event Inactive</span>
-                      <% end %>
-                    </td>
                     </tr>  
                   <% end %>
                   
@@ -83,7 +73,6 @@
                     <th scope="col">Reported Users</th> 
                     <th scope="col">Description</th>
                     <th scope="col" data-searchable="false">Reported on</th>
-                    <th scope="col" data-searchable="false" data-sortable="false">Report Status</th>
 
                     </tr>
                 </thead>
@@ -96,15 +85,7 @@
                     <td><%= link_to user.email, admin_report_path(r.id)%></td>
                      <td><%= r.description if r.description.present? %></td>
                     <td><%= r.created_at.strftime('%b %e, %Y')%></td>
-                    <td>
-                        <% if r.status == 'reported' %>
-                          <span class="badge bg-warning">Pending</span>
-                        <% elsif r.status == 'approved'%>
-                          <span class="badge bg-success">Approved</span>
-                        <%else%>
-                          <span class="badge bg-danger">User Inactive</span>
-                        <% end %>
-                    </td>
+                   
                     </tr>
                   <% end %>
                   
