@@ -9,7 +9,7 @@ class Admin::EventsController < ApplicationController
   
     # GET /users/1 or /users/1.json
     def show
-      @options_all =EventCategory.pluck(:event_category,:id)
+      @options_all = EventCategory.pluck(:event_category,:id)
       @option = EventCategory.find_by(id:@event.event_categories_id)
       @selected = [@option[:event_category],@option[:id]]
 

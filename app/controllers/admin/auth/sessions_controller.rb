@@ -10,7 +10,7 @@ class Admin::Auth::SessionsController < ApplicationController
         sign_in(admin)
         redirect_to authenticated_root_path
       else
-        redirect_to unauthenticated_root_path
+        redirect_to unauthenticated_root_path, notice:"Invalid email or password."
       end
     end
   

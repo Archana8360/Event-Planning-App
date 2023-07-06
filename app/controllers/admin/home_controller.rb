@@ -42,7 +42,7 @@ class Admin::HomeController < ApplicationController
       redirect_to admin_profile_path
     end
       
-      private
+    private
       
       def profile_params
         params.require(:profile).permit(:first_name, :last_name,:dob, :phone_number, :address, :image)

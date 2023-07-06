@@ -20,20 +20,20 @@
                     <h5 class="card-title text-center pb-0 fs-4">Login to Your Account</h5>
                     <p class="text-center small">Enter your email & password to login</p>
                   </div>
-                  <%= form_with(url: admin_login_path, scope: :user, class: "row g-3 needs-validation", novalidate: true) do |f| %>
+                  <%= form_with(url: admin_login_path, scope: :user, class: "row g-3 needs-validation") do |f| %>
                     <div class="col-12">
-                        <%= f.label :email, "Email",for:"yourUsername", class: "form-label" %>                      
-                        <div class="input-group has-validation">
+                      <%= f.label :email, "Email", for: "yourUsername", class: "form-label" %>
+                      <div class="input-group has-validation">
                         <span class="input-group-text" id="inputGroupPrepend">@</span>
-                        <%= f.email_field :email, class: "form-control", id: "yourUsername", required: true , autofocus: true, autocomplete: "email"%>
-                        <div class="invalid-feedback">Please enter your username.</div>
+                        <%= f.email_field :email, class: "form-control", id: "yourUsername", required: true, autofocus: true, autocomplete: "email" %>
+                        <div class="invalid-feedback" id="email-error"></div>
                       </div>
                     </div>
 
                     <div class="col-12">
-                      <%= f.label :password,"Password",for:"yourPassword" , class: "form-label" %><br />
-                      <%= f.password_field :password,class:"form-control", id:"yourPassword", required:true, autocomplete: "current-password" %>
-                      <div class="invalid-feedback">Please enter your password!</div>
+                      <%= f.label :password, "Password", for: "yourPassword", class: "form-label" %><br>
+                      <%= f.password_field :password, class: "form-control", id: "yourPassword", required: true, autocomplete: "current-password" %>
+                      <div class="invalid-feedback" id="password-error"></div>
                     </div>
 
                     <div class="col-12">
@@ -43,7 +43,7 @@
                       </div>
                     </div>
                     <div class="actions">
-                      <%= f.submit "Login", class:"btn btn-primary w-100" %>
+                      <%= f.submit "Login", class: "btn btn-primary w-100" %>
                     </div>
                   <% end %>
 
@@ -69,3 +69,52 @@
       </section>
 
     </div>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  var form = document.querySelector(".needs-validation");
+  var emailField = document.getElementById("yourUsername");
+  var passwordField = document.getElementById("yourPassword");
+  var emailError = document.getElementById("email-error");
+  var passwordError = document.getElementById("password-error");
+
+  form.addEventListener("submit", function(event) {
+    if (!form.checkValidity()) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    form.classList.add("was-validated");
+  });
+
+  emailField.addEventListener("input", function() {
+    if (emailField.validity.valid) {
+      emailError.textContent = "";
+      emailError.style.display = "none";
+    } else {
+      if (emailField.validity.valueMissing) {
+        showError("Email is required.", emailError);
+      } else if (emailField.validity.typeMismatch) {
+        showError("Please enter a valid email address.", emailError);
+      } else {
+        showError("Invalid email format.", emailError);
+      }
+    }
+  });
+
+  passwordField.addEventListener("input", function() {
+    if (passwordField.validity.valid) {
+      passwordError.textContent = "";
+      passwordError.style.display = "none";
+    } else {
+      showError("Password is required.", passwordError);
+    }
+  });
+
+  function showError(errorMessage, errorElement) {
+    errorElement.textContent = errorMessage;
+    errorElement.style.display = "block";
+    errorElement.style.color = "red";
+  }
+});
+
+</script>

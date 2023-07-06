@@ -310,32 +310,7 @@ end
     else
       error("Failed to report the event")
     end
-  end
-
-  
-# def report_user(type)
-#     user = User.find_by(id: params[:id])
-#     description = params[:description]
-#     if user.nil?
-#       error_404("user not found")
-#       return
-#     end
-#     if user.id == current_user.id
-#       error("You cannot report yourself")
-#       return
-#     end
-#     if Report.exists?(reported_id: user.id, reported_by_id: current_user.id, report_type: type)
-#       error("You have already reported this event")
-#       return
-#     end
-#     reported_user = Report.create(reported_id: user.id, reported_by_id: current_user.id,report_type: type, description: description)
-#     if reported_user.save
-#       success("User reported successfully")
-#     else
-#       error("Failed to report the User")
-#     end
-#  end
-  
+  end  
 
 def report_user(type)
   user = User.find_by(id: params[:id])
